@@ -18,6 +18,7 @@ import assets from '../assets/assets';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 const { Title, Text, Link } = Typography;
 
 const ProfilePage = () => {
@@ -77,8 +78,14 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className='min-h-screen bg-cover bg-no-repeat flex items-center justify-center'>
-      <div className='w-5/6 max-w-2xl backdrop-blur-2xl text-gray-300 border-2 border-gray-400 flex items-center justify-between max-sm:flex-col-reverse rounded-lg'>
+    <div className='min-h-screen flex items-center justify-center bg-white/8'>
+      <div className='w-5/6 max-w-2xl bg-black/60 text-gray-300 border-2 border-gray-400 flex items-center justify-between max-sm:flex-col-reverse rounded-lg relative'>
+        <div
+          className="absolute top-4 right-4 cursor-pointer text-gray-300 hover:text-blue-400"
+          onClick={() => navigate('/')}
+        >
+          <ArrowLeftOutlined style={{ fontSize: '20px', fontWeight:"bold" }} />
+        </div>
         <Form
           onFinish={handleUpdate}
           layout="vertical"
@@ -131,8 +138,9 @@ const ProfilePage = () => {
                 padding: "8px 8px",
                 borderRadius: "2px",
                 border: "1px solid #ccc",
-                backgroundColor: "rgba(255, 255, 255, 0.00)",
-                color: "#D1D5DB"
+                backgroundColor: "white/50",
+                color: "#2563EB",
+                fontWeight: "bold"
               }}
             />
           </Form.Item>
@@ -149,10 +157,11 @@ const ProfilePage = () => {
                 padding: "8px 8px",
                 borderRadius: "2px",
                 border: "1px solid #ccc",
-                backgroundColor: "rgba(255, 255, 255, 0.00)",
-                color: "#D1D5DB",
+                backgroundColor: "white",
+                color: "#2563EB",
                 height: 120,
                 resize: "none",
+                fontWeight: "bold"
               }}
             />
           </Form.Item>
@@ -166,7 +175,7 @@ const ProfilePage = () => {
                 bottom: "1.25rem",
                 left: "50%",
                 transform: "translateX(-50%)",
-                backgroundImage: "linear-gradient(to right, #ccc, #7c3aed)",
+                backgroundImage: "linear-gradient(to right, #ccc, #2563EB)",
                 color: "white",
                 border: "none",
                 fontSize: "0.875rem",

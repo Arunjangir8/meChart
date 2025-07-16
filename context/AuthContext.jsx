@@ -3,6 +3,7 @@ import React, { createContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {io} from "socket.io-client"
 
+
 const backendurl = import.meta.env.VITE_BACKEND_URL
 axios.defaults.baseURL = backendurl
 
@@ -30,7 +31,8 @@ export const AuthProvider = ({children}) =>{
                 connectSocket(data.user)
             }
         } catch (error) {
-            toast.error(error.message)
+            console.log(error)
+            toast.error("Error in Authentication")
         }
     }
 
@@ -60,10 +62,11 @@ export const AuthProvider = ({children}) =>{
                 localStorage.setItem("token",data.token)
                 toast.success(data.message)
             }else{
-                toast.error(data.message)
+                toast.error("Login Failed")
             }
         } catch (error) {
-            toast.error(error.message)
+            console.log(error.message)
+            toast.error("Login Failed")
         }
     }
 
@@ -86,10 +89,12 @@ export const AuthProvider = ({children}) =>{
                 setAuthUser(data.user)
                 toast.success("Updated Profile")
             }else{
-                toast.error(data.message)
+                console.log(data.message)
+                toast.error("Failed to Update Profile")
             }
         } catch (error) {
-            toast.error(error.message)
+            console.log(error.message)
+            toast.error("Failed to Update Profile")
         }
     }
 
