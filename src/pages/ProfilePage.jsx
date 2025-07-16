@@ -78,7 +78,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-white/8'>
+    <div className='min-h-[100dvh] flex items-center justify-center bg-white/8'>
       <div className='w-5/6 max-w-2xl bg-black/60 text-gray-300 border-2 border-gray-400 flex items-center justify-between max-sm:flex-col-reverse rounded-lg relative'>
         <div
           className="absolute top-4 right-4 cursor-pointer text-gray-300 hover:text-blue-400"

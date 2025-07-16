@@ -56,7 +56,7 @@ const LoginPage = () => {
     setIsloading(false)
   }
   return (
-    <div className='min-h-[100vh] flex justify-center items-center bg-white/8'>
+    <div className='min-h-[100dvh] flex justify-center items-center bg-white/8'>
       <Card className='w-[100vw] h-[100vh] md:h-auto md:max-w-[400px] shadow-2xl flex flex-col justify-around bg-white/8' style={{ backgroundColor: "rgba(255, 255, 255, 0.08)" }}>
 
         <div className='flex justify-between '>

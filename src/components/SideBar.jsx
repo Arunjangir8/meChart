@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { MenuOutlined, SearchOutlined } from "@ant-design/icons"
 import assets from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
@@ -19,7 +19,10 @@ import { AuthContext } from '../../context/AuthContext';
 import { ChartContext } from '../../context/ChartContext';
 const { Title, Text, Link } = Typography;
 
+
 const SideBar = () => {
+  const menuRef = useRef();
+  const [open, setOpen] = useState(false);
 
   const { user, getUser, unseenMessages, setUnseenMessages, selectedUser, setSelectedUser } = useContext(ChartContext);
   const { logout, onlineUser } = useContext(AuthContext)
@@ -34,6 +37,16 @@ const SideBar = () => {
     getUser()
   }, [onlineUser])
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <div className={`h-full p-5 rounded-r-xl md:rounded-r-none overflow-y-scroll text-white ${selectedUser ? 'max-md:hidden' : ''}`}>
       <div className='pb-5'>
@@ -42,30 +55,52 @@ const SideBar = () => {
             <img src={assets.logo} alt="" className='max-w-8' />
             <Title level={4} className=' font-semibold' style={{color : "white"}}>meChat</Title>
           </div>
-          <div className='relative py-2 group'>
-            <MenuOutlined className='max-h-5 cursor-pointer text-gray-300 hover:text-white transition-colors' />
-            <div className='absolute top-full right-0 z-20 w-36 p-2 rounded-md bg-black-800/90 backdrop-blur-sm border border-gray-600/50 text-gray-100 hidden group-hover:block shadow-lg'>
-              <Button type="text" block style={{
-                color: "#f3f4f6",
-                fontSize: "0.875rem",
-                fontWeight: 500
-              }} className="hover:bg-gray-700/50" onClick={() => navigate("/profile")}>
-                Edit Profile
-              </Button>
+          <div className="relative py-2" ref={menuRef}>
+      <MenuOutlined
+        className="max-h-5 cursor-pointer text-gray-300 hover:text-white transition-colors"
+        onClick={() => setOpen(!open)}
+      />
 
-              <Divider style={{ marginBottom: "5px", marginTop: "5px", backgroundColor: "#6b7280" }} />
+      {open && (
+        <div className="absolute top-full right-0 z-20 w-36 p-2 rounded-md bg-black-800/90 backdrop-blur-sm border border-gray-600/50 text-gray-100 shadow-lg">
+          <Button
+            type="text"
+            block
+            style={{
+              color: "#f3f4f6",
+              fontSize: "0.875rem",
+              fontWeight: 500
+            }}
+            className="hover:bg-gray-700/50"
+            onClick={() => {
+              navigate("/profile");
+              setOpen(false);
+            }}
+          >
+            Edit Profile
+          </Button>
 
-              <Button type="text" block
-                onClick={logout}
-                style={{
-                  color: "#f3f4f6",
-                  fontSize: "0.875rem",
-                  fontWeight: 500
-                }} className="hover:bg-gray-700/50">
-                Logout
-              </Button>
-            </div>
-          </div>
+          <Divider style={{ marginBottom: "5px", marginTop: "5px", backgroundColor: "#6b7280" }} />
+
+          <Button
+            type="text"
+            block
+            onClick={() => {
+              logout();
+              setOpen(false);
+            }}
+            style={{
+              color: "#f3f4f6",
+              fontSize: "0.875rem",
+              fontWeight: 500
+            }}
+            className="hover:bg-gray-700/50"
+          >
+            Logout
+          </Button>
+        </div>
+      )}
+    </div>
         </div>
 
         <div className='bg-gray-800/80 backdrop-blur-sm rounded-full flex items-center gap-2 py-3 px-4 mt-5 border border-gray-600/50'>
