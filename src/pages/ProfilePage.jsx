@@ -112,7 +112,7 @@ const ProfilePage = () => {
               <Avatar
                 src={
                   tempProfilePicPreview ||
-                  (typeof data.profilePic === 'string' ? data.profilePic : assets.avatar_icon)
+                   assets.avatar_icon
                 }
                 size={44}
               />
