@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { GoogleOutlined, GithubOutlined } from "@ant-design/icons"
 import {
   Button,
@@ -12,6 +12,7 @@ import {
   Input,
   Form
 } from 'antd';
+import { AuthContext } from '../../context/AuthContext';
 const { Title, Text, Link } = Typography;
 
 
@@ -28,9 +29,13 @@ const LoginPage = () => {
   const [showBioStep, setShowBioStep] = useState(false);
   const [formData, setFormData] = useState({});
 
+
+  const {login} = useContext(AuthContext)
+  
   function handleLogin(val) {
     setIsloading(true)
     console.log("LOGIN", val)
+    login("login",val)
     setIsloading(false)
   }
   
@@ -47,6 +52,7 @@ const LoginPage = () => {
   function handleSignup(val) {
     setIsloading(true)
     console.log("SIGNUP", val)
+    login("signup",val)
     setIsloading(false)
   }
   return (

@@ -14,10 +14,13 @@ import {
   Input,
   Form
 } from 'antd';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 const { Title, Text, Link } = Typography;
 
 const SideBar = ({ selectedUser, setSelectedUser }) => {
   const navigate = useNavigate()
+  const {logout} = useContext(AuthContext)
   return (
     <div className={`bg-[#8185B2]/10 h-full p-5 rounded-r-xl md:rounded-r-none overflow-y-scroll text-white ${selectedUser ? 'max-md:hidden' : ''}`}>
       <div className='pb-5'>
@@ -35,7 +38,9 @@ const SideBar = ({ selectedUser, setSelectedUser }) => {
 
               <Divider style={{ marginBottom: "5px", marginTop: "5px", backgroundColor: "white" }} />
 
-              <Button type="text" block style={{
+              <Button type="text" block 
+              onClick={logout}
+              style={{
                 color: "#f3f4f6",
                 fontSize: "0.875rem"
               }}>

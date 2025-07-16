@@ -15,23 +15,64 @@ import {
   Avatar
 } from 'antd'
 import assets from '../assets/assets';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import toast from 'react-hot-toast';
 const { Title, Text, Link } = Typography;
 
 const ProfilePage = () => {
-  const [data, setdata] = useState({ name: "Arun", bio: "I’m a software developer passionate about building user-focused applications.", profilePic: null })
+  const {updateProfile, authUser} = useContext(AuthContext)
+  const [tempProfilePicPreview, setTempProfilePicPreview] = useState(null);
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [data, setdata] = useState({ 
+    fullName: authUser.fullName, 
+    bio: authUser.bio, 
+    profilePic: authUser.profilePic 
+  })
   const navigate = useNavigate()
 
-  const handleUpdate = (file) => {
-    console.log(file)
-    navigate("/")
+  const handleUpdate = async (formData) => {
+    try {
+      setLoading(true);
+      let updateData = { ...formData };
+      const file = uploadedFile;
+      if (file instanceof Blob) {
+        const reader = new FileReader();
+
+        reader.onload = async () => {
+          const base64Image = reader.result;
+          updateData.profilePic = base64Image;
+          await updateProfile(updateData);
+          setdata({
+          ...updateData,
+          profilePic: base64Image
+          });
+          setTempProfilePicPreview(null);
+          setLoading(false);
+          navigate("/");
+        };
+        reader.readAsDataURL(file);
+      } else {
+        await updateProfile(updateData);
+        setdata(updateData);
+        setTempProfilePicPreview(null); 
+        setLoading(false);
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      toast.error("Failed to update profile");
+      setLoading(false);
+    }
   }
+
   const handleUpload = async (info) => {
     const file = info.file;
     if (file) {
-      setdata((prev) => ({
-        ...prev,
-        profilePic: file,
-      }));
+      const previewUrl = URL.createObjectURL(file);
+      setTempProfilePicPreview(previewUrl);
+      setUploadedFile(file)
     }
   };
 
@@ -39,7 +80,7 @@ const ProfilePage = () => {
     <div className='min-h-screen bg-cover bg-no-repeat flex items-center justify-center'>
       <div className='w-5/6 max-w-2xl backdrop-blur-2xl text-gray-300 border-2 border-gray-400 flex items-center justify-between max-sm:flex-col-reverse rounded-lg'>
         <Form
-          onFinish={(e) => { handleUpdate({ ...e, profilePic: data.profilePic }) }}
+          onFinish={handleUpdate}
           layout="vertical"
           requiredMark={false}
           className='flex flex-col gap-5 flex-1'
@@ -49,7 +90,7 @@ const ProfilePage = () => {
             gap:"10px"
           }}
           initialValues={{
-            fullName: data.name,
+            fullName: data.fullName,
             bio: data.bio,
           }}
         >
@@ -70,16 +111,14 @@ const ProfilePage = () => {
             <label className="flex items-center gap-3 cursor-pointer text-gray-300">
               <Avatar
                 src={
-                  data.profilePic
-                    ? URL.createObjectURL(data.profilePic)
-                    : assets.avatar_icon // make sure this is valid!
+                  tempProfilePicPreview ||
+                  (typeof data.profilePic === 'string' ? data.profilePic : assets.avatar_icon)
                 }
                 size={44}
               />
               Upload Profile Image
             </label>
           </Upload>
-
 
           <Form.Item
             label={null}
@@ -137,12 +176,17 @@ const ProfilePage = () => {
                 cursor: "pointer",
               }}
               block
+              loading={loading}
             >
               Save
             </Button>
           </Form.Item>
         </Form>
-        <img className='max-w-36 aspect-square  mx-12 max-md:mt-10' src={assets.logo_icon} alt="" />
+        <img
+        className='w-36 aspect-square object-cover rounded-full mx-12 max-md:mt-10'
+        src={ data?.profilePic || assets.logo_icon}
+        alt="Profile"
+      />
       </div>
     </div >
   )
