@@ -44,6 +44,7 @@ const LoginPage = () => {
   const handleCreateAccount = (values) => {
     if (!showBioStep) {
       setFormData(values);
+      setShowBioStep(true);
     } else {
       const completeData = { ...formData, ...values };
       handleSignup(completeData);
@@ -283,7 +284,7 @@ const LoginPage = () => {
                       border: "none",
                       borderBottom: "2px solid #ccc",
                       backgroundColor: "rgba(255, 255, 255, 0.05)",
-                      color: "whiet"
+                      color: "white"
                     }}
                   />
                 </Form.Item>

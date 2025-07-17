@@ -1,12 +1,70 @@
-# React + Vite
+# MeChat 💬
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, real-time chat application with voice-to-text, image messaging, and classic responsive design.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Real-time Messaging** - Instant chat with Socket.IO
+- **Voice to Text** - Convert voice messages to text
+- **Image Messaging** - Send and receive images
+- **User Authentication** - Secure login/signup system
+- **Responsive Design** - Works on desktop, tablet, and mobile
+- **Classic Aesthetic** - Clean, timeless UI design
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+![Dashboard Screenshot]("./public/Chat.png)
+
+
+**Frontend:**
+- React
+- Socket.IO Client
+- Ant Design (AntD)
+- Tailwind CSS
+- Web Speech API
+
+**Backend:**
+- Node.js
+- Express.js
+- Socket.IO
+- Express.js
+- Prisma ORM
+
+**Database:**
+- Prisma (PostgreSQL/MySQL)
+
+## 📱 Responsive Design
+
+- **Desktop** - Full-featured interface with sidebar
+- **Tablet** - Touch-friendly adapted layout
+- **Mobile** - Streamlined mobile-first design
+
+## 📁 Project Structure
+
+```
+havingmechat/
+├── mechat-backend/
+│   ├── prisma/
+│   ├── src/
+│   └── package.json
+├── mechat/
+│   ├── src/
+│   ├── public/
+│   └── package.json
+└── README.md
+```
+
+## 🔐 Security
+
+- JWT Authentication
+- Password Hashing
+- Input Validation
+- CORS Protection
+
+## 📄 License
+
+MIT License
+
+---
+
+**HavingMeChat** - Connecting people through seamless communication 🌟
