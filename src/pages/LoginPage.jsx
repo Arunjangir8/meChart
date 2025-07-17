@@ -14,6 +14,7 @@ import {
 } from 'antd';
 import { AuthContext } from '../../context/AuthContext';
 const { Title, Text, Link } = Typography;
+import { useNavigate } from 'react-router-dom'
 
 
 const formheaderStyle = {
@@ -28,6 +29,7 @@ const LoginPage = () => {
   const [isloading, setIsloading] = useState(false);
   const [showBioStep, setShowBioStep] = useState(false);
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
 
 
   const {login} = useContext(AuthContext)
@@ -166,6 +168,7 @@ const LoginPage = () => {
                   }}
                 >
                   <Button
+                    disabled
                     type={"primary"}
                     htmlType="button"
                     style={{
@@ -187,6 +190,7 @@ const LoginPage = () => {
                   }}
                 >
                   <Button
+                    onClick={() => navigate("/about-me")}
                     type={"primary"}
                     htmlType="button"
                     style={{
@@ -359,6 +363,7 @@ const LoginPage = () => {
                   }}
                 >
                   <Button
+                    disabled
                     type={"primary"}
                     htmlType="button"
                     loading={isloading}
@@ -381,6 +386,7 @@ const LoginPage = () => {
                   }}
                 >
                   <Button
+                    onClick={() => navigate("/about-me")}
                     type={"primary"}
                     htmlType="button"
                     loading={isloading}

@@ -7,6 +7,7 @@ import toast from 'react-hot-toast'
 import { Drawer } from 'antd'
 import Loading from './Loading'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import { useNavigate } from 'react-router-dom'
 
 const ChartContainor = () => {
   const { messages, selectedUser, setSelectedUser, getMessages, sendMessage } = useContext(ChartContext)
@@ -14,6 +15,7 @@ const ChartContainor = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [input, setInput] = useState("");
   const [isloading, setIsLoading] = useState(false);
+  const navigate = useNavigate()
 
   const scrollEnd = useRef()
 
@@ -97,7 +99,7 @@ const ChartContainor = () => {
           <LeftOutlined onClick={() => setSelectedUser(false)} style={{ color: "#e5e7eb", fontSize: "22px" }} />
         </span>
         <span className='max-md:hidden max-w-5'>
-          <InfoCircleOutlined onClick={() => setIsProfileOpen(true)} style={{ color: "#e5e7eb", fontSize: "22px" }} />
+          <InfoCircleOutlined onClick={() => navigate("/about-me")} style={{ color: "#e5e7eb", fontSize: "22px" }} />
 
         </span>
       </div>

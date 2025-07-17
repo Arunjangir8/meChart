@@ -5,6 +5,7 @@ import ProfilePage from './pages/ProfilePage'
 import {Toaster} from "react-hot-toast"
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
+import ContactMe from './pages/ContactMe'
 
 const App = () => {
   const {authUser} = useContext(AuthContext)
@@ -43,6 +44,7 @@ const App = () => {
         <Route path='/' element={ authUser ? <HomePage/> : <Navigate to={"/login"}/>}/>
         <Route path='/login' element={!authUser ? <LoginPage/> : <Navigate to={"/"}/>}/>
         <Route path='/profile' element={authUser ? <ProfilePage/> : <Navigate to={"/login"}/>}/>
+        <Route path='/about-me' element={<ContactMe/>}/>
       </Routes>
     </div>
   )
