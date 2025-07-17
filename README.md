@@ -11,10 +11,31 @@ A modern, real-time chat application with voice-to-text, image messaging, and cl
 - **Responsive Design** - Works on desktop, tablet, and mobile
 - **Classic Aesthetic** - Clean, timeless UI design
 
+
+| ![](./public/Chat-mobile.png) | ![](./public/Dashboard.png) | ![](./public/Editprofile-mobile.png) | ![](./public/Viewprofile-mobile.png) |
+|--------------------------|--------------------------|--------------------------|--------------------------|
+
+
+
+![Chat](./public/Chat.png)
+
+
+
+![Chat](./public/Editprofile.png)
+
+
+
+![Chat](./public/Login.png)
+
+
+
+![Chat](./public/Viewprofile.png)
+
+
+
+
+
 ## 🛠️ Tech Stack
-
-![Dashboard Screenshot]("./public/Chat.png)
-
 
 **Frontend:**
 - React
