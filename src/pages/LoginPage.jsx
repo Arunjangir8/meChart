@@ -32,27 +32,26 @@ const LoginPage = () => {
 
   const {login} = useContext(AuthContext)
   
-  function handleLogin(val) {
+  async function handleLogin(val) {
     setIsloading(true)
     console.log("LOGIN", val)
-    login("login",val)
+    await login("login",val)
     setIsloading(false)
   }
   
   const handleCreateAccount = (values) => {
     if (!showBioStep) {
       setFormData(values);
-      setShowBioStep(true);
     } else {
       const completeData = { ...formData, ...values };
       handleSignup(completeData);
     }
   };
 
-  function handleSignup(val) {
+  async function handleSignup(val) {
     setIsloading(true)
     console.log("SIGNUP", val)
-    login("signup",val)
+    await login("signup",val)
     setIsloading(false)
   }
   return (
@@ -102,14 +101,14 @@ const LoginPage = () => {
                   rules={[{ required: true, message: 'Please input your Email!' }]}
                 >
                   <Input
-                    prefix={<span className='text-gray-800 text-sm  tracking-wider pr-14'>EMAIL</span>}
+                    prefix={<span className='text-gray-200 text-sm  tracking-wider pr-14'>EMAIL</span>}
                     style={{
                       padding: "8px 8px",
                       borderRadius: "2px",
                       border: "none",
                       borderBottom: "2px solid #ccc",
-                      backgroundColor: "rgba(255, 255, 255, 0.30)",
-                      color: "black"
+                      backgroundColor: "rgba(255, 255, 255, 0.05)",
+                      color: "white"
                     }}
                   />
                 </Form.Item>
@@ -120,14 +119,14 @@ const LoginPage = () => {
               rules={[{ required: true, message: 'Please input your password!' }]}
             >
               <Input.Password
-                prefix={<span className='text-gray-800 text-sm  tracking-wider pr-5'>PASSWORD</span>}
+                prefix={<span className='text-gray-200 text-sm  tracking-wider pr-5'>PASSWORD</span>}
                 style={{
                   padding: "8px 8px",
                   borderRadius: "2px",
                   border: "none",
                   borderBottom: "2px solid #ffffff",
-                  backgroundColor: "rgba(255, 255, 255, 0.30)",
-                  color: "black"
+                  backgroundColor: "rgba(255, 255, 255, 0.05)",
+                  color: "white"
                 }}
               />
             </Form.Item>
@@ -169,7 +168,6 @@ const LoginPage = () => {
                   <Button
                     type={"primary"}
                     htmlType="button"
-                    loading={isloading}
                     style={{
                       height: "38px",
                       fontSize: "16px",
@@ -191,7 +189,6 @@ const LoginPage = () => {
                   <Button
                     type={"primary"}
                     htmlType="button"
-                    loading={isloading}
                     style={{
                       height: "38px",
                       fontSize: "16px",
@@ -225,14 +222,14 @@ const LoginPage = () => {
                   rules={[{ required: true, message: 'Please input your username!' }]}
                 >
                   <Input
-                    prefix={<span className='text-gray-800 text-sm pr-10 tracking-wider'>NAME</span>}
+                    prefix={<span className='text-gray-200 text-sm pr-10 tracking-wider'>NAME</span>}
                     style={{
                       padding: "8px 8px",
                       borderRadius: "2px",
                       border: "none",
                       borderBottom: "2px solid #ccc",
-                      backgroundColor: "rgba(255, 255, 255, 0.30)",
-                      color: "black"
+                      backgroundColor: "rgba(255, 255, 255, 0.05)",
+                      color: "white"
                     }}
                   />
                 </Form.Item>
@@ -243,14 +240,14 @@ const LoginPage = () => {
                   rules={[{ required: true, message: 'Please input your Email!' }]}
                 >
                   <Input
-                    prefix={<span className='text-gray-800 text-sm  tracking-wider pr-10'>EMAIL</span>}
+                    prefix={<span className='text-gray-200 text-sm  tracking-wider pr-10'>EMAIL</span>}
                     style={{
                       padding: "8px 8px",
                       borderRadius: "2px",
                       border: "none",
                       borderBottom: "2px solid #ccc",
-                      backgroundColor: "rgba(255, 255, 255, 0.30)",
-                      color: "black"
+                      backgroundColor: "rgba(255, 255, 255, 0.05)",
+                      color: "white"
                     }}
                   />
                 </Form.Item>
@@ -258,17 +255,31 @@ const LoginPage = () => {
                 <Form.Item
                   label={null}
                   name="password"
-                  rules={[{ required: true, message: 'Please input your password!' }]}
+                  rules={[
+                  { required: true, message: 'Please input your password!' },
+                  {
+                    validator: (_, value) => {
+                      if (!value) return Promise.resolve();
+                      if (value.length < 7) {
+                        return Promise.reject("Password must be at least 7 characters");
+                      }
+                      if (!/\d/.test(value)) {
+                        return Promise.reject("Password must contain at least one number");
+                      }
+                      return Promise.resolve();
+                    },
+                  },
+                ]}
                 >
                   <Input.Password
-                    prefix={<span className='text-gray-800 text-sm  tracking-wider'>PASSWORD</span>}
+                    prefix={<span className='text-gray-200 text-sm  tracking-wider'>PASSWORD</span>}
                     style={{
                       padding: "8px 8px",
                       borderRadius: "2px",
                       border: "none",
                       borderBottom: "2px solid #ccc",
-                      backgroundColor: "rgba(255, 255, 255, 0.30)",
-                      color: "black"
+                      backgroundColor: "rgba(255, 255, 255, 0.05)",
+                      color: "whiet"
                     }}
                   />
                 </Form.Item>

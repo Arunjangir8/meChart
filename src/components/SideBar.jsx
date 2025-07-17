@@ -23,7 +23,6 @@ const { Title, Text, Link } = Typography;
 const SideBar = () => {
   const menuRef = useRef();
   const [open, setOpen] = useState(false);
-
   const { user, getUser, unseenMessages, setUnseenMessages, selectedUser, setSelectedUser } = useContext(ChartContext);
   const { logout, onlineUser } = useContext(AuthContext)
 

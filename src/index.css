@@ -10,9 +10,12 @@
     display: none;
 }
 .ant-input-affix-wrapper textarea::placeholder, .ant-input::placeholder {
-  color:  black !important; /* Replace with your desired color */
-  opacity: 1 !important;  /* Ensure full opacity */
+  color:  white !important; 
+  opacity: 1 !important;  
 }
+.ant-form-item-explain-error {
+    color: #3b82f6 !important; 
+  }
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -21,4 +24,5 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
   background-color: transparent !important;
   transition: background-color 9999s ease-in-out 0s;
+  color : white !important;
 }

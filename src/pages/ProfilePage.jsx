@@ -138,8 +138,8 @@ const ProfilePage = () => {
                 padding: "8px 8px",
                 borderRadius: "2px",
                 border: "1px solid #ccc",
-                backgroundColor: "white/50",
-                color: "#2563EB",
+                backgroundColor: "black",
+                color: "white",
                 fontWeight: "bold"
               }}
             />
@@ -157,8 +157,8 @@ const ProfilePage = () => {
                 padding: "8px 8px",
                 borderRadius: "2px",
                 border: "1px solid #ccc",
-                backgroundColor: "white",
-                color: "#2563EB",
+                backgroundColor: "black",
+                color: "white",
                 height: 120,
                 resize: "none",
                 fontWeight: "bold"
@@ -175,7 +175,7 @@ const ProfilePage = () => {
                 bottom: "1.25rem",
                 left: "50%",
                 transform: "translateX(-50%)",
-                backgroundImage: "linear-gradient(to right, #ccc, #2563EB)",
+                backgroundImage: "#2563EB",
                 color: "white",
                 border: "none",
                 fontSize: "0.875rem",
@@ -192,8 +192,8 @@ const ProfilePage = () => {
           </Form.Item>
         </Form>
         <img
-        className='w-36 aspect-square object-cover rounded-full mx-12 max-md:mt-10'
-        src={ data?.profilePic || assets.logo_icon}
+        className={`w-40 aspect-square object-cover mx-12 max-md:mt-10 ${data?.profilePic ? "rounded-full" : "rounded-lg "}`}
+        src={ data?.profilePic || assets.logo_big}
         alt="Profile"
       />
       </div>

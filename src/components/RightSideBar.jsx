@@ -2,23 +2,34 @@ import React, { useContext, useEffect, useState } from 'react'
 import assets from '../assets/assets'
 import { ChartContext } from '../../context/ChartContext'
 import { AuthContext } from '../../context/AuthContext'
+import Loading from './Loading'
 
 const RightSideBar = () => {
   const {selectedUser, messages} = useContext(ChartContext)
   const {logout, onlineUser} = useContext(AuthContext)
   const [msgImage, setMsgImage] = useState([])
+  const [isloading, setIsLoading] = useState(false);
 
  useEffect(() => {
-  setMsgImage(
-    messages
-      .filter(
-        msg =>
-          msg.image &&
-          (msg.senderId === selectedUser.id || msg.receiverId === selectedUser.id)
-      )
-      .map(msg => msg.image)
-  );
-}, [messages, selectedUser]);
+    const processImages = () => {
+      setIsLoading(true);
+
+      const filteredImages = messages
+        .filter(
+          msg =>
+            msg.image &&
+            (msg.senderId === selectedUser?.id || msg.receiverId === selectedUser?.id)
+        )
+        .map(msg => msg.image);
+
+      setMsgImage(filteredImages);
+      setIsLoading(false);
+    };
+
+    if (selectedUser) {
+      processImages();
+    }
+  }, [messages, selectedUser]);
 
   return (
     <div className={`text-white w-full overflow-y-scroll relative ${selectedUser ? 'max-md:hidden': ''}`}>
@@ -37,11 +48,27 @@ const RightSideBar = () => {
       <div className='px-5 text-xs'>
         <p className='text-gray-300 font-medium mb-2'>Media</p>
         <div className='mt-2 max-h-[200px] overflow-y-scroll grid grid-cols-2 gap-4'>
-          {msgImage.map((img,index)=>(
-            <div key={index} onClick={()=>{window.open(img)}} className='cursor-pointer rounded-md hover:opacity-80 transition-opacity'>
-                <img src={img} className='h-full rounded-md object-cover border border-gray-600/30 shadow-md' alt="" />
-            </div>
-          ))}
+          {isloading ? (
+            <Loading />
+          ) : msgImage.length > 0 ? (
+            msgImage.map((img, index) => (
+              <div
+                key={index}
+                onClick={() => {
+                  window.open(img);
+                }}
+                className="cursor-pointer rounded-md hover:opacity-80 transition-opacity"
+              >
+                <img
+                  src={img}
+                  className="h-full rounded-md object-cover border border-gray-600/30 shadow-md"
+                  alt=""
+                />
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-500 col-span-2 text-center">No media shared yet.</p>
+          )}
         </div>
       </div>
 
