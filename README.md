@@ -2,6 +2,12 @@
 
 A modern, real-time chat application with voice-to-text, image messaging, and classic responsive design.
 
+## Dummy Use
+
+- Email : leo.martinez07@example.com
+- Password : arun9987
+
+
 ## ✨ Features
 
 - **Real-time Messaging** - Instant chat with Socket.IO
